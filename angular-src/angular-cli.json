@@ -9,7 +9,8 @@
       "outDir": "../public",
       "assets": [
         "assets",
-        "favicon.ico"
+        "favicon.ico",
+        "font-awesome-4.7.0/fonts"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -18,7 +19,7 @@
       "tsconfig": "tsconfig.json",
       "prefix": "app",
       "styles": [
-        "styles.css"
+        "styles.scss"
       ],
       "scripts": [],
       "environments": {
@@ -49,7 +50,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "scss",
     "prefixInterfaces": false,
     "inline": {
       "style": false,

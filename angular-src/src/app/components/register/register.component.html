@@ -13,6 +13,25 @@
     <input type="text" [(ngModel)]="email" name="email" class="form-control" id="registerEmail" placeholder="Enter email">
   </div>
   <div class="form-group">
+    <label for="registerRole">Role</label>
+    <div>
+      <select id="registerRole" name="role" [(ngModel)]="role">
+        <option [ngValue]="undefined" disabled>Select Role</option>
+        <option *ngFor="let item of roleOptions" [value]="item.value" >
+          {{item.label}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div *ngIf="role === 'teacher'" class="form-group">
+    <label for="registerClass">Class Name</label>
+    <input type="text" [(ngModel)]="className" name="className" class="form-control" id="registerClass" placeholder="Enter Class Name">
+  </div>
+  <div *ngIf="role === 'student'" class="form-group">
+    <label for="registerClassId">Class ID</label>
+    <input type="text" [(ngModel)]="classId" name="classId" class="form-control" id="registerClassId" placeholder="Enter Class ID">
+  </div>
+  <div class="form-group">
     <label for="registerPassword">Password</label>
     <input type="password" [(ngModel)]="password" name="password" class="form-control" id="registerPassword" placeholder="Password">
   </div>

@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
+const Class = require('../models/class');
+const uniqueValidator = require('mongoose-unique-validator');
 
 // User Schema
 const UserSchema = mongoose.Schema({
   name: {
-    type: String
+    type: String,
+    required: true
   },
   email: {
     type: String,
@@ -13,13 +16,28 @@ const UserSchema = mongoose.Schema({
   },
   username: {
     type: String,
-    required: true
+    required: true,
+    unique : true
   },
   password: {
     type: String,
     required: true
+  },
+  role: {
+    type: String,
+    required: true
+  },
+  _classId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Class'
+  },
+  className: {
+    type: String,
+    required: false
   }
 });
+
+UserSchema.plugin(uniqueValidator, {message: 'userExists'});
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
@@ -33,13 +51,41 @@ module.exports.getUserByUsername = function(username, callback){
 }
 
 module.exports.addUser = function(newUser, callback){
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(newUser.password, salt, (err, hash) => {
-      if(err) throw err;
-      newUser.password = hash;
-      newUser.save(callback);
+  console.log("ClassName: " + newUser.className);
+  if(newUser.role === "teacher") {
+    let newClass = new Class({
+      name: newUser.className
     });
-  });
+
+    Class.addClass(newClass, (err, addedClass) => {
+      if(err) {
+        console.log(err);
+      } else {
+        newUser._classId = addedClass._id;
+
+        bcrypt.genSalt(10, (err, salt) => {
+          bcrypt.hash(newUser.password, salt, (err, hash) => {
+            if(err) throw err;
+            newUser.password = hash;
+            newUser.save(callback);
+          });
+        });
+      }
+    });
+  } else {
+    Class.getClassById(newUser._classId, (err, usersClass) => {
+      if(err) throw err;
+      newUser._classId = usersClass._id;
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if(err) throw err;
+          newUser.password = hash;
+          newUser.save(callback);
+        });
+      });
+    });
+
+  }
 }
 
 module.exports.comparePassword = function(enteredPassword, hash, callback){

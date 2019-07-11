@@ -16,13 +16,15 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { AuthGaurd } from './guards/auth.guard';
+import { VocabComponent } from './components/vocab/vocab.component';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
   {path:'register', component: RegisterComponent},
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGaurd]},
-  {path:'profile', component: ProfileComponent, canActivate:[AuthGaurd]}
+  {path:'profile', component: ProfileComponent, canActivate:[AuthGaurd]},
+  {path:'vocab', component: VocabComponent, canActivate:[AuthGaurd]}
 ]
 
 @NgModule({
@@ -33,7 +35,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    VocabComponent
   ],
   imports: [
     BrowserModule,

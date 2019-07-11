@@ -4,6 +4,7 @@ const passport = require('passport');
 const jwt = require('jsonwebtoken');
 const User = require('../models/users');
 const config= require('../config/database');
+const mongoose = require('mongoose');
 
 // Register
 router.post('/register', (req, res, next) => {
@@ -11,14 +12,25 @@ router.post('/register', (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    role: req.body.role,
+    className: req.body.className,
+    _classId: mongoose.Types.ObjectId(req.body.classId)
+
   });
 
   User.addUser(newUser, (err, user) => {
     if(err) {
-      res.json({success: false, msg: 'Failed to register user'});
+      if(err.message && err.message.includes("userExists")) {
+        res.json({success: false, msg: 'Username taken'});
+      } else {
+        res.json({success: false, msg: 'Failed to register user'});
+      }
+      console.log("!!!!!!!!!!!!" + err);
     } else {
-      res.json({success: true, msg: 'User registered'});
+      res.json({success: true,
+        msg: 'User registered'
+      });
     }
   });
 });
@@ -48,7 +60,9 @@ router.post('/authenticate', (req, res, next) => {
             id: user._id,
             name: user.name,
             username: user.username,
-            email: user.email
+            email: user.email,
+            role: user.role,
+            classId: user.classId
           }
         });
       } else {
