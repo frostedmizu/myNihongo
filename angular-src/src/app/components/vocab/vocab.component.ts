@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivityService } from '../../services/activity.service';
 
 @Component({
   selector: 'app-vocab',
@@ -11,41 +12,28 @@ export class VocabComponent implements OnInit {
   private currentQuestion = 0;
   public question;
   private progress = [];
-  private count = 0;
+  private count = -1;
   private lastQuestion;
   private questionTime;
   private timer;
   public score = 0;
 
-  constructor() { }
+  constructor(
+    private activityService: ActivityService
+  ) { }
 
   ngOnInit() {
     this.questionTime = 10;
 
     //Bring in questions
-    this.questions = [
-      {
-        question : "What does taberu mean?",
-        choiceA : "to eat",
-        choiceB : "to sleep",
-        choiceC : "to drink",
-        correct : "A"
-      },{
-        question : "What 'shukudai wo shiteiru' mean?",
-        choiceA : "did homework",
-        choiceB : "doing homework",
-        choiceC : "will do homework",
-        correct : "B"
-      },{
-        question : "What does 'omae wa mou shindeiru' mean?",
-        choiceA : "You're going to die.",
-        choiceB : "You're dying.",
-        choiceC : "You're already dead.",
-        correct : "C"
-      }
-    ];
-
-    this.lastQuestion = this.questions.length - 1;
+    this.activityService.getQuestions().subscribe(questions => {
+        this.questions = questions;
+        this.lastQuestion = this.questions.length - 1;
+      },
+      err => {
+        console.log(err);
+        return false;
+      });
   }
 
   startQuiz() {
@@ -64,9 +52,9 @@ export class VocabComponent implements OnInit {
     if(this.count <= this.questionTime){
       this.count++
     } else {
-      this.count = 0;
+      this.count = -1;
       // change progress color to red
-      //this.markAsWrong();
+      this.progress.push(false);
       if(this.currentQuestion < this.lastQuestion){
         this.currentQuestion++;
         this.renderQuestion();
@@ -92,24 +80,16 @@ export class VocabComponent implements OnInit {
     }
   }
 
-  markAsWrong() {
-    console.log("wrong");
-  }
-
-  scoreRender(){
-    console.log("wrong");
-  }
-
   checkAnswer(answer) {
     // Right answer
-    if(answer === this.questions[this.currentQuestion].correct){
+    if(answer === this.questions[this.currentQuestion].answer){
       this.progress.push(true);
       this.score++;
     } else { // Wrong answer
       this.progress.push(false);
     }
     if(this.currentQuestion < this.lastQuestion) {
-      this.count = 0;
+      this.count = -1;
       this.currentQuestion++;
       this.renderQuestion();
     } else {

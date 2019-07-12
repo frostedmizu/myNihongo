@@ -12,11 +12,15 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { VocabComponent } from './components/vocab/vocab.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { AuthGaurd } from './guards/auth.guard';
-import { VocabComponent } from './components/vocab/vocab.component';
+import { ActivityService } from './services/activity.service';
+
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AddQuestionModalComponent } from './components/add-question-modal/add-question-modal.component';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -36,16 +40,19 @@ const appRoutes: Routes = [
     HomeComponent,
     DashboardComponent,
     ProfileComponent,
-    VocabComponent
+    VocabComponent,
+    AddQuestionModalComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    FlashMessagesModule
+    FlashMessagesModule,
+    ModalModule.forRoot()
   ],
-  providers: [ValidateService, AuthService, AuthGaurd],
+  entryComponents: [AddQuestionModalComponent],
+  providers: [ValidateService, AuthService, AuthGaurd, ActivityService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

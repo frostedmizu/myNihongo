@@ -1,3 +1,30 @@
-<p>
-  dashboard works!
-</p>
+<div>
+  <h2 class="page-header">Vocab Quiz</h2>
+
+  <div class="card">
+    <div class="card-header">
+      Add Vocab Question
+    </div>
+    <div class="card-body">
+      <button type="button" class="btn btn-primary" (click)="openModalWithComponent()">Add Question</button>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-header">
+      Your Questions:
+    </div>
+    <div class="card-body">
+      <div *ngFor="let question of questions; let last = last">
+        <div>Question: {{question.question}}</div>
+        <ul>
+          <li type="A">{{question.choiceA}}</li>
+          <li type="A">{{question.choiceB}}</li>
+          <li type="A">{{question.choiceC}}</li>
+          <li type="A">{{question.choiceD}}</li>
+        </ul>
+        <div>Answer: {{question.answer}}</div>
+        <hr *ngIf="!last">
+      </div>
+    </div>
+  </div>
+</div>
