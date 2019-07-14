@@ -27,4 +27,28 @@ export class ActivityService {
         return questionsData.data;
       });
   }
+
+  addQuestion(question) {
+    let headers = new Headers();
+    this.authToken = this.authService.loadToken();
+    headers.append('Authorization',this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/question/addQuestion', question, {headers: headers})
+      .map(res => res.json());
+  }
+
+  // Returns updated questions
+  deleteQuestion(id) {
+    let headers = new Headers();
+    this.authToken = this.authService.loadToken();
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    let classId = this.profile.classId;
+    headers.append('Authorization',this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('http://localhost:3000/question/deleteQuestion', {id: id, classId: classId}, {headers: headers})
+      .map(res => {
+        let questionsData = res.json();
+        return questionsData.data;
+      });
+  }
 }

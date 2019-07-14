@@ -6,7 +6,7 @@
       Add Vocab Question
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-primary" (click)="openModalWithComponent()">Add Question</button>
+      <button type="button" class="btn btn-primary" (click)="openModal()">Add Question</button>
     </div>
   </div>
   <div class="card">
@@ -14,15 +14,20 @@
       Your Questions:
     </div>
     <div class="card-body">
-      <div *ngFor="let question of questions; let last = last">
-        <div>Question: {{question.question}}</div>
-        <ul>
-          <li type="A">{{question.choiceA}}</li>
-          <li type="A">{{question.choiceB}}</li>
-          <li type="A">{{question.choiceC}}</li>
-          <li type="A">{{question.choiceD}}</li>
-        </ul>
-        <div>Answer: {{question.answer}}</div>
+      <div *ngFor="let question of questions; let last = last; let i = index" class="row">
+        <div class="col-md-10 col-sm-12">
+          <div>Question: {{question.question}}</div>
+          <ul>
+            <li type="A">{{question.choiceA}}</li>
+            <li type="A">{{question.choiceB}}</li>
+            <li type="A">{{question.choiceC}}</li>
+            <li type="A">{{question.choiceD}}</li>
+          </ul>
+          <div>Answer: {{question.answer}}</div>
+        </div>
+        <div class="col-md-2 col-sm-12">
+          <button type="button" class="btn btn-primary" (click)="deleteQuestion(i)">Delete</button>
+        </div>
         <hr *ngIf="!last">
       </div>
     </div>

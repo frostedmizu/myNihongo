@@ -5,5 +5,75 @@
   </button>
 </div>
 <div class="modal-body">
-  Add question here
+  <form (ngSubmit)="onSubmit()" #questionForm="ngForm">
+    <div class="form-group">
+      <label for="question">Question</label>
+      <input type="text"
+             class="form-control"
+             id="question"
+             required
+             [(ngModel)]="question"
+             name="question"
+             (focus)="clearMsg()">
+    </div>
+    <div class="form-group">
+      <label for="choiceA">Choice A</label>
+      <input type="text"
+             class="form-control"
+             id="choiceA"
+             required
+             [(ngModel)]="choiceA"
+             name="choiceA"
+             (focus)="clearMsg()">
+    </div>
+    <div class="form-group">
+      <label for="choiceB">Choice B</label>
+      <input type="text"
+             class="form-control"
+             id="choiceB"
+             required
+             [(ngModel)]="choiceB"
+             name="choiceB"
+             (focus)="clearMsg()">
+    </div>
+    <div class="form-group">
+      <label for="choiceC">Choice C</label>
+      <input type="text"
+             class="form-control"
+             id="choiceC"
+             required
+             [(ngModel)]="choiceC"
+             name="choiceC"
+             (focus)="clearMsg()">
+    </div>
+    <div class="form-group">
+      <label for="choiceD">Choice D</label>
+      <input type="text"
+             class="form-control"
+             id="choiceD"
+             required
+             [(ngModel)]="choiceD"
+             name="choiceD"
+             (focus)="clearMsg()">
+    </div>
+    <div class="form-group">
+      <label for="answer">Answer</label>
+      <div>
+        <select id="answer" name="answer" [(ngModel)]="answer" (click)="clearMsg()">
+          <option [ngValue]="undefined" disabled>Select Answer</option>
+          <option *ngFor="let item of answerOptions" [value]="item.value" >
+            {{item.label}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!questionForm.form.valid">Add Question</button>
+  </form>
+
+  <div class="alert alert-success" role="alert" *ngIf="showSuccess">
+    Question added!
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="showError">
+    Error: Cannot add question
+  </div>
 </div>
