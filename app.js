@@ -51,7 +51,7 @@ app.use('/question', question);
 
 // Index Route
 app.get('/', (req, res) => {
-  res.send('??????');
+  res.send('Invalid Endpoint');
 });
 
 // All other routes go to index.html
