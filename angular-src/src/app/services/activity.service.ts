@@ -29,7 +29,7 @@ constructor(
 
     this.profile = JSON.parse(localStorage.getItem('profile'));
     let classId = this.profile.classId;
-    let url = 'http://localhost:3000/question/getQuestions?classId=' + classId;
+    let url = 'question/getQuestions?classId=' + classId;
     return this.http.get(url, httpOptions)
       .pipe(
         map((response: any) => {
@@ -52,7 +52,7 @@ constructor(
       })
     };
 
-    return this.http.post('http://localhost:3000/question/addQuestion', question, httpOptions)
+    return this.http.post('question/addQuestion', question, httpOptions)
       .pipe(
         catchError((err) => {return of(err)})
       );
@@ -75,7 +75,7 @@ constructor(
       })
     };
 
-    return this.http.post('http://localhost:3000/question/deleteQuestion', {id: id, classId: classId}, httpOptions)
+    return this.http.post('question/deleteQuestion', {id: id, classId: classId}, httpOptions)
       .pipe(
         map((response: any) => {
           return response.data;

@@ -21,7 +21,7 @@ export class AuthService {
       })
     };
 
-    return this.http.post('http://localhost:3000/users/register', user, httpOptions)
+    return this.http.post('users/register', user, httpOptions)
       .pipe(
         catchError((err) => {return of(err)})
       );
@@ -37,7 +37,7 @@ export class AuthService {
       })
     };
 
-    return this.http.post('http://localhost:3000/users/authenticate', user, httpOptions)
+    return this.http.post('users/authenticate', user, httpOptions)
       .pipe(
         catchError((err) => {return of(err)})
       );
@@ -68,7 +68,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get('http://localhost:3000/users/profile', httpOptions)
+    return this.http.get('users/profile', httpOptions)
       .pipe(
         catchError((err) => {return of(err)})
       );
