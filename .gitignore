@@ -30,8 +30,6 @@ angular-src/node_modules
 npm-debug.log
 testem.log
 /typings
-/package-lock.json
-/angular-src/package-lock.json
 
 # e2e
 /angular-src/e2e/*.js
