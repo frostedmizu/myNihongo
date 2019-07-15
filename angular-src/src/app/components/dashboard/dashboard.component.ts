@@ -57,4 +57,14 @@ export class DashboardComponent implements OnInit {
         return false;
       });
   }
+
+  hasQuestions() {
+    if(!this.questions) {
+      return false;
+    } else if(!this.questions.length) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }

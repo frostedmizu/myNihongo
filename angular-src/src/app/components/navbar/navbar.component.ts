@@ -9,6 +9,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  user: any;
 
   constructor(
     private authService: AuthService,
@@ -17,6 +18,13 @@ export class NavbarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.authService.getProfile().subscribe((profile: any) => {
+        this.user = profile.user;
+      },
+      err => {
+        console.log(err);
+        return false;
+      });
   }
 
   onLogoutClick() {
@@ -27,5 +35,19 @@ export class NavbarComponent implements OnInit {
     });
     this.router.navigate(['/login']);
     return false;
+  }
+
+  isTeacher() {
+    if(!this.authService.isLoggedIn()) {
+      return false;
+    } else {
+      if(!this.user) {
+        return false;
+      } else {
+        if(this.user.role === 'teacher') {
+          return true;
+        }
+      }
+    }
   }
 }

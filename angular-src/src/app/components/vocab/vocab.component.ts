@@ -98,4 +98,14 @@ export class VocabComponent implements OnInit {
 
   }
 
+  hasQuestions() {
+    if(!this.questions) {
+      return false;
+    } else if(!this.questions.length) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 }

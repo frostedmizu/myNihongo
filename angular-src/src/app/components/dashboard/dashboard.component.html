@@ -9,11 +9,11 @@
       <button type="button" class="btn btn-primary" (click)="openModal()">Add Question</button>
     </div>
   </div>
-  <div class="card">
+  <div class="card margin-top" *ngIf="hasQuestions()">
     <div class="card-header">
       Your Questions:
     </div>
-    <div class="card-body">
+    <div class="card-body margin-top">
       <div *ngFor="let question of questions; let last = last; let i = index" class="row">
         <div class="col-md-10 col-sm-12">
           <div>Question: {{question.question}}</div>
@@ -32,4 +32,5 @@
       </div>
     </div>
   </div>
+  <h4 *ngIf="!hasQuestions()" class="margin-top">Oops, you don't have any questions.</h4>
 </div>
