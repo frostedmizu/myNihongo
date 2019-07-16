@@ -1,4 +1,4 @@
 module.exports = {
-  database: 'mongodb://localhost:27017/mynihongo',
+  database: 'mongodb+srv://yan:yanpassword@mynihongo-o2fxw.mongodb.net/test?retryWrites=true&w=majority',
   secret: 'somesecret'
 }
