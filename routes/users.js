@@ -26,7 +26,6 @@ router.post('/register', (req, res, next) => {
       } else {
         res.json({success: false, msg: 'Failed to register user'});
       }
-      console.log("!!!!!!!!!!!!" + err);
     } else {
       res.json({success: true,
         msg: 'User registered'

@@ -3,6 +3,7 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import {Observable, of, throwError} from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { isDevMode } from '@angular/core';
 
 @Injectable()
 export class AuthService {
@@ -21,7 +22,7 @@ export class AuthService {
       })
     };
 
-    return this.http.post('users/register', user, httpOptions)
+    return this.http.post(this.getBaseUrl() + 'users/register', user, httpOptions)
       .pipe(
         catchError((err) => {return of(err)})
       );
@@ -37,7 +38,7 @@ export class AuthService {
       })
     };
 
-    return this.http.post('users/authenticate', user, httpOptions)
+    return this.http.post(this.getBaseUrl() + 'users/authenticate', user, httpOptions)
       .pipe(
         catchError((err) => {return of(err)})
       );
@@ -68,7 +69,7 @@ export class AuthService {
       })
     };
 
-    return this.http.get('users/profile', httpOptions)
+    return this.http.get(this.getBaseUrl() + 'users/profile', httpOptions)
       .pipe(
         catchError((err) => {return of(err)})
       );
@@ -92,5 +93,15 @@ export class AuthService {
       return false;
     }
 
+  }
+
+  getBaseUrl() {
+    let baseUrl: string;
+    if (isDevMode()) {
+      baseUrl = "http://localhost:8080/";
+    } else {
+      baseUrl = "";
+    }
+    return baseUrl;
   }
 }

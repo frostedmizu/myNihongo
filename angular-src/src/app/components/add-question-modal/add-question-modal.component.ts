@@ -16,6 +16,7 @@ export class AddQuestionModalComponent implements OnInit {
   answer: String;
   showSuccess: boolean;
   showError: boolean;
+  level: number;
 
   answerOptions = [
     {value: "A", label: "A"},
@@ -44,7 +45,7 @@ export class AddQuestionModalComponent implements OnInit {
       choiceC: this.choiceC,
       choiceD: this.choiceD,
       answer: this.answer,
-      level: 1,
+      level: this.level,
       classId: classId
     };
 

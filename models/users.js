@@ -46,12 +46,11 @@ module.exports.getUserById = function(id, callback){
 }
 
 module.exports.getUserByUsername = function(username, callback){
-  const query = {username: username};
+  const query = {username: username.toUpperCase()};
   User.findOne(query, callback);
 }
 
 module.exports.addUser = function(newUser, callback){
-  console.log("ClassName: " + newUser.className);
   if(newUser.role === "teacher") {
     let newClass = new Class({
       name: newUser.className
@@ -67,6 +66,7 @@ module.exports.addUser = function(newUser, callback){
           bcrypt.hash(newUser.password, salt, (err, hash) => {
             if(err) throw err;
             newUser.password = hash;
+            newUser.username = newUser.username.toUpperCase();
             newUser.save(callback);
           });
         });

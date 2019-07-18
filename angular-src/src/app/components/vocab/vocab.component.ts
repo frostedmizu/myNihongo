@@ -17,6 +17,9 @@ export class VocabComponent implements OnInit {
   private questionTime;
   private timer;
   public score = 0;
+  public currentLevel = 1;
+  private questionsByLevel = [];
+  public totalScore = [];
 
   constructor(
     private activityService: ActivityService
@@ -27,13 +30,28 @@ export class VocabComponent implements OnInit {
 
     //Bring in questions
     this.activityService.getQuestions().subscribe(questions => {
-        this.questions = questions;
-        this.lastQuestion = this.questions.length - 1;
+        this.getQuestions();
+  },
+      err => {
+        console.log(err);
+        return false;
+      });
+  }
+
+  getQuestions() {
+    this.activityService.getQuestions().subscribe(questions => {
+        this.questionsByLevel = this.activityService.parseLevels(questions);
+        this.setLevel();
       },
       err => {
         console.log(err);
         return false;
       });
+  }
+
+  setLevel() {
+    this.questions = this.questionsByLevel[this.currentLevel - 1];
+    this.lastQuestion = this.questions.length - 1;
   }
 
   startQuiz() {
@@ -60,9 +78,7 @@ export class VocabComponent implements OnInit {
         this.renderQuestion();
       } else{
         // end the quiz and show the score
-        clearInterval(this.timer);
-        //this.scoreRender();
-        this.view = 'score';
+        this.addScore();
       }
     }
   }
@@ -93,7 +109,7 @@ export class VocabComponent implements OnInit {
       this.currentQuestion++;
       this.renderQuestion();
     } else {
-      this.view = 'score';
+      this.addScore();
     }
 
   }
@@ -108,4 +124,31 @@ export class VocabComponent implements OnInit {
     }
   }
 
+  startNewLevel() {
+    this.currentQuestion = 0;
+    this.progress = [];
+    this.count = -1;
+    this.score = 0;
+    this.currentLevel++;
+    this.setLevel();
+    this.startQuiz();
+  }
+
+  hasNextLevel() {
+    return this.questionsByLevel.length > this.currentLevel;
+  }
+
+  addScore() {
+    clearInterval(this.timer);
+    this.view = 'score';
+    this.totalScore.push({
+      score: this.score,
+      total: this.questions.length,
+      level: this.currentLevel
+    });
+  }
+
+  end() {
+    this.view = 'end';
+  }
 }

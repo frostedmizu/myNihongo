@@ -15,6 +15,5 @@ module.exports.getClassById = function(id, callback){
 }
 
 module.exports.addClass = function(newClass, callback){
-  console.log("Name: " + newClass.name);
   newClass.save(callback);
 }

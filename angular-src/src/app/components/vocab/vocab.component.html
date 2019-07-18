@@ -3,7 +3,8 @@
 
   <div class="card margin-top" *ngIf="hasQuestions()">
     <div class="card-header">
-      Vocab Quiz Level 1
+      <span *ngIf="view !== 'end'">Vocab Quiz Level {{currentLevel}}</span>
+      <span *ngIf="view === 'end'">Final Results</span>
     </div>
     <div class="card-body" [ngSwitch]="view">
       <div *ngSwitchCase="'start'"><button type="button" class="btn btn-primary" (click)="startQuiz()">Start Quiz!</button></div>
@@ -26,14 +27,32 @@
               <span class="sr-only">{{count}}</span>
             </div>
           </div>
-          <div></div>
-          <div></div>
         </div>
         <div>
           <i *ngFor="let question of questions; let i = index" [ngClass]="getProgressClass(i)" aria-hidden="true"></i>
         </div>
       </div>
-      <div *ngSwitchCase="'score'">Your score: {{this.score}} out of {{this.questions.length}}</div>
+      <div *ngSwitchCase="'score'">
+        <div>Your score: {{this.score}} out of {{this.questions.length}}</div>
+        <button type="button" class="btn btn-primary margin-top" *ngIf="hasNextLevel()" (click)="startNewLevel()">Start Next Level Quiz!</button>
+        <button type="button" class="btn btn-primary margin-top" *ngIf="!hasNextLevel()" (click)="end()">Final Results</button>
+      </div>
+      <div *ngSwitchCase="'end'">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">Level</th>
+            <th scope="col">Score</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let levelScore of totalScore">
+            <th scope="row">{{levelScore.level}}</th>
+            <td>{{levelScore.score}} out of {{levelScore.total}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <h4 *ngIf="!hasQuestions()" class="margin-top">Oops, you don't have any questions.</h4>

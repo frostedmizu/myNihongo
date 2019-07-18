@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import {Observable, of, throwError} from 'rxjs';
 import {catchError, map, retry} from 'rxjs/operators';
 import {Question} from "../models/question";
+import { isDevMode } from '@angular/core';
 
 @Injectable()
 export class ActivityService {
@@ -29,7 +30,7 @@ constructor(
 
     this.profile = JSON.parse(localStorage.getItem('profile'));
     let classId = this.profile.classId;
-    let url = 'question/getQuestions?classId=' + classId;
+    let url = this.getBaseUrl() + 'question/getQuestions?classId=' + classId;
     return this.http.get(url, httpOptions)
       .pipe(
         map((response: any) => {
@@ -52,7 +53,7 @@ constructor(
       })
     };
 
-    return this.http.post('question/addQuestion', question, httpOptions)
+    return this.http.post(this.getBaseUrl() + 'question/addQuestion', question, httpOptions)
       .pipe(
         catchError((err) => {return of(err)})
       );
@@ -75,7 +76,7 @@ constructor(
       })
     };
 
-    return this.http.post('question/deleteQuestion', {id: id, classId: classId}, httpOptions)
+    return this.http.post(this.getBaseUrl() + 'question/deleteQuestion', {id: id, classId: classId}, httpOptions)
       .pipe(
         map((response: any) => {
           return response.data;
@@ -87,5 +88,29 @@ constructor(
         let questionsData = res.json();
         return questionsData.data;
       });*/
+  }
+
+  parseLevels(questions) {
+    let questionsByLevel = [];
+    for(let i=0; i < questions.length; i++) {
+      let level = questions[i].level;
+      if(questionsByLevel.length < level) {
+        questionsByLevel[level - 1] = [];
+        questionsByLevel[level - 1].push(questions[i]);
+      } else {
+        questionsByLevel[level - 1].push(questions[i]);
+      }
+    }
+    return questionsByLevel;
+  }
+
+  getBaseUrl() {
+    let baseUrl: string;
+    if (isDevMode()) {
+      baseUrl = "http://localhost:8080/";
+    } else {
+      baseUrl = "";
+    }
+    return baseUrl;
   }
 }

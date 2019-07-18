@@ -38,7 +38,6 @@ router.get('/getQuestions', passport.authenticate('jwt', {session:false}), (req,
 });
 
 router.post('/deleteQuestion', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-  console.log(req.body.id);
   Question.deleteOne({ _id: mongoose.Types.ObjectId(req.body.id) }, (err) => {
     if (err) return handleError(err);
     Question.getQuestionsByClassId(req.body.classId, (err, questions) => {
