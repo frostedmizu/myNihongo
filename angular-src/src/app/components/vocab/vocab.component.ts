@@ -8,13 +8,13 @@ import { ActivityService } from '../../services/activity.service';
 })
 export class VocabComponent implements OnInit {
   public view = 'start';
-  private questions;
+  public questions;
   private currentQuestion = 0;
   public question;
   private progress = [];
-  private count = -1;
+  public count = -1;
   private lastQuestion;
-  private questionTime;
+  public questionTime;
   private timer;
   public score = 0;
   public currentLevel = 1;

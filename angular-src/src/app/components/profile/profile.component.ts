@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
 
-  user: Object;
+  user: any;
 
   constructor(
     private authService: AuthService
