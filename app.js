@@ -25,6 +25,8 @@ const app = express();
 // Setting up routes
 const users = require('./routes/users');
 const question = require('./routes/question');
+const reading = require('./routes/reading');
+const answer = require('./routes/answer');
 
 // Port Number
 //const port = 3000;
@@ -48,6 +50,8 @@ require('./config/passport')(passport);
 
 app.use('/users', users);
 app.use('/question', question);
+app.use('/reading', reading);
+app.use('/answer', answer);
 
 // Index Route
 app.get('/', (req, res) => {

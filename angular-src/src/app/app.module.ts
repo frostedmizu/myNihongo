@@ -21,6 +21,10 @@ import { ActivityService } from './services/activity.service';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AddQuestionModalComponent } from './components/add-question-modal/add-question-modal.component';
+import { ReadingComponent } from './components/reading/reading.component';
+import { ScoreComponent } from './components/score/score.component';
+import { EditVocabComponent } from './components/edit-vocab/edit-vocab.component';
+import { ReadingAnswersComponent } from './components/reading-answers/reading-answers.component';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -28,7 +32,11 @@ const appRoutes: Routes = [
   {path:'login', component: LoginComponent},
   {path:'dashboard', component: DashboardComponent, canActivate:[AuthGaurd]},
   {path:'profile', component: ProfileComponent, canActivate:[AuthGaurd]},
-  {path:'vocab', component: VocabComponent, canActivate:[AuthGaurd]}
+  {path:'vocab', component: VocabComponent, canActivate:[AuthGaurd]},
+  {path:'score', component: ScoreComponent, canActivate:[AuthGaurd]},
+  {path:'reading', component: ReadingComponent, canActivate:[AuthGaurd]},
+  {path:'editVocab', component: EditVocabComponent, canActivate:[AuthGaurd]},
+  {path:'readingAnswers', component: ReadingAnswersComponent, canActivate:[AuthGaurd]},
 ]
 
 @NgModule({
@@ -41,7 +49,11 @@ const appRoutes: Routes = [
     DashboardComponent,
     ProfileComponent,
     VocabComponent,
-    AddQuestionModalComponent
+    AddQuestionModalComponent,
+    ReadingComponent,
+    ScoreComponent,
+    EditVocabComponent,
+    ReadingAnswersComponent
   ],
   imports: [
     BrowserModule,

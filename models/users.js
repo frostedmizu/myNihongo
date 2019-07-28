@@ -80,6 +80,7 @@ module.exports.addUser = function(newUser, callback){
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if(err) throw err;
           newUser.password = hash;
+          newUser.username = newUser.username.toUpperCase();
           newUser.save(callback);
         });
       });

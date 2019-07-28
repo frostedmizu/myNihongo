@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import {Observable, of, throwError} from 'rxjs';
+import {BehaviorSubject, Observable, of, throwError} from 'rxjs';
 import { catchError, retry } from 'rxjs/operators';
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { isDevMode } from '@angular/core';
@@ -10,6 +10,10 @@ export class AuthService {
   authToken: any;
   user: any;
   helper = new JwtHelperService();
+
+  private _logInRefresh: BehaviorSubject<String> = new BehaviorSubject(String());
+
+  public readonly logInRefresh: Observable<String> = this._logInRefresh.asObservable();
 
   constructor(
     private http: HttpClient
@@ -103,5 +107,9 @@ export class AuthService {
       baseUrl = "";
     }
     return baseUrl;
+  }
+
+  refreshNav() {
+    this._logInRefresh.next('loggedIn');
   }
 }

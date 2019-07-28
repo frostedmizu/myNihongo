@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "mynihongo",
+  "private_key_id": "7f090dfd90f234e858826b12c85e64a294825214",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCa+0YlFnQbhq8K\n6i6rYGJwc3V+gngII180COOTr15XPtimOgrBGhmO5u7F26bt/fY0/63Xs6RTDbk9\nOeifonxukrt7KNs3t6ZXPKjYDVf77GnjhScpR57J0wNJC0KOXASJvfUMDEOHjm+o\n/KCR5W7p/nlIF/ma7bo3dBLmh9+rU4UWuIj8btp76xJ73NswgiBthdTswRlSPjH0\nfGAnEYAinZjT8PWIPawcv0p25l2+0nfaurcrDyCVSxOaA5mIX7yp22uWwG0iZukx\n9mANyjB+vlIcsOnywOeK4xV7JrM5QVzk7U1xnTfWB1r/A7mi46aGJ+xHKluWbMT7\nsCIsduvnAgMBAAECggEAFQOSxcREdwJX6VTKgi3opb20sIl+k//pJemPTf7pKE7w\nWk2kF/3IJGJh/XhPK0A+/32sM9ilpHtHuCpfb9xndH4MfLe+ovs8SzeBigCj2EKn\nMuni3vaD7HK3pHz/Mm/9+jKZr4oEKApjT9hSlKW1gyB1j8BsdZoxSy6VF3v/PcAN\n0esUSB/6k36/e0Cp97Vyjb+UvQeCA50FHB01/wmg3AZkid/5zKiTXQhAurBm13aX\nxx0oG0K62MBT0DRWrum/UgeAwjqeZqQ1qc7F+CEQjJFWEkKVvXNJo63yemnPJVZr\nwa0nHRFPQdjBkA2bI9pXzszbbqe3ggcbjmLuPSt12QKBgQDM1734Tq66HdMeV5L8\nnx6BxH0Yg5zF0nEkf3yBeJXXc8TbfK3Ovfd0Gmf9dg7iKRIPi/cnTNMAduDCq3hZ\nr2g2/a6ubWpa5cc1l1KlwsItvqDjkJ0Ed5KE89K0r9PgeaTRr2qKTXVdtLbsCmAq\n3bBH4PVCsw48jfVTGE0zQ/CoGQKBgQDBr76EWi2eQNVrneGwu2Fk2E42sP5dT1fz\n4qVvjwyNEfOKIpSFliS+B4wZjqUDfCDGjzOX2IGyF/nvlMHCSWBIlI1DoSuIASxz\n5JHTHCJk/VFcS0SMuZg+z3vKxEa7PvCUyjq2cJZzCvj6LMmIIY15ageIoWkR11ge\nHzfMSqaz/wKBgQCRZ//Q2EGNmgg3/KA5NNZZ9Vl7YkmR3y0zZE/ENA3hj6tIxns2\nS4DxaKEyuXAdOFw6rvc1bYJGTRyE82UN/MZ0aqVp6f9aIMvFDfK7+cEO6ceZYhkj\nh6F5QP7sBffX22GU+vkczZkneFV0vnS/WPh+PYC75RCRCZAAeTqrzmlxWQKBgHEC\nuRgCggGHdL9hFJGJE6/Cogg5R4FsTTZJNRwdjEY3hjFAMgar725Newpid5fL8lfI\nsGLV+f7PDI8k7dUN+TcALliajorBnI1WfVt/W/Yu9Cz04d92XwWvDFzoHxkcBUXb\npVxT3wTrDxDx1vkuEp0YJ6MqAuNdEdYpguYZXKFDAoGAX2AqmSVfewByRwa1kvvW\nHd6n5CsW6qJgRer5K8C62kp/uxaCVUwBfyGTi+3sJgnBbx9GcQ+P2QaoJKhc06BF\n01OuwWxeI4XRRVWA4VXpP6UrzhzxHSf0Cx+fKAQ0jzdgAaQY7KHm3PHHVgGnfzyM\nUdkh4PDr/3JGCLaeaK+HLYk=\n-----END PRIVATE KEY-----\n",
+  "client_email": "mynihongo@mynihongo.iam.gserviceaccount.com",
+  "client_id": "113082785279275223543",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/mynihongo%40mynihongo.iam.gserviceaccount.com"
+}

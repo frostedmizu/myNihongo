@@ -11,6 +11,7 @@ export class ActivityService {
   authToken: any;
   questions: any;
   profile: any;
+  key = 'AIzaSyDDyrzFA_rk-Inoo9sFvtoQf7CP09S7P4o';
 
 
 
@@ -38,10 +39,6 @@ constructor(
         }),
         catchError((err) => {return of(err)})
       );
-      /*.map(res => {
-        let questionsData = res.json();
-        return questionsData.data;
-      });*/
   }
 
   addQuestion(question) {
@@ -58,8 +55,6 @@ constructor(
         catchError((err) => {return of(err)})
       );
 
-    /*return this.http.post('question/addQuestion', question, {headers: headers})
-      .map(res => res.json());*/
   }
 
   // Returns updated questions
@@ -83,11 +78,6 @@ constructor(
         }),
         catchError((err) => {return of(err)})
       );
-    /*return this.http.post('question/deleteQuestion', {id: id, classId: classId}, {headers: headers})
-      .map(res => {
-        let questionsData = res.json();
-        return questionsData.data;
-      });*/
   }
 
   parseLevels(questions) {
@@ -112,5 +102,138 @@ constructor(
       baseUrl = "";
     }
     return baseUrl;
+  }
+
+  getPassages() {
+    this.authToken = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    let classId = this.profile.classId;
+    let url = this.getBaseUrl() + 'reading/getReading?classId=' + classId;
+    return this.http.get(url, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response.data;
+        }),
+        catchError((err) => {return of(err)})
+      );
+  }
+
+  translate(input) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json'
+      })
+    };
+
+    return this.http.post('https://translation.googleapis.com/language/translate/v2?key=' + this.key ,
+      {
+        source: "ja",
+        target: "en",
+        q: input
+      }, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response.data.translations[0].translatedText;
+        }),
+        catchError((err) => {return of(err)})
+      );
+  }
+
+  getScores() {
+    this.authToken = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    let classId = this.profile.classId;
+    let url = this.getBaseUrl() + 'answer/getScores?classId=' + classId;
+    return this.http.get(url, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response.data;
+        }),
+        catchError((err) => {return of(err)})
+      );
+  }
+
+  postScore(score) {
+    return this.authService.getProfile().subscribe((profile) => {
+      score.username = profile.user.username;
+      score.classId = profile.user._classId;
+      this.authToken = this.authService.loadToken();
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': this.authToken
+        })
+      };
+
+      return this.http.post(this.getBaseUrl() + 'answer/addScore', score, httpOptions)
+        .pipe(
+          map((response: any) => {
+            console.log(response);
+            return response;
+          }),
+          catchError((err) => {
+            return of(err)
+          })
+        ).subscribe();
+    });
+  }
+
+  getReadingAnswers() {
+    this.authToken = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    let classId = this.profile.classId;
+    let url = this.getBaseUrl() + 'answer/getReadingAnswers?classId=' + classId;
+    return this.http.get(url, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response.data;
+        }),
+        catchError((err) => {return of(err)})
+      );
+  }
+
+  postReadingAnswer(answer) {
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    answer.username = this.profile.username;
+    answer.classId = this.profile.classId;
+    this.authToken = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+
+    return this.http.post(this.getBaseUrl() + 'answer/addReadingAnswer', answer, httpOptions)
+      .pipe(
+        map((response: any) => {
+          console.log(response);
+          return response;
+        }),
+        catchError((err) => {
+          return of(err)
+        })
+      );
   }
 }

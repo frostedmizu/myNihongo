@@ -1,0 +1,50 @@
+<div>
+  <h2 class="page-header">Vocab Quiz</h2>
+
+  <div *ngIf="this.loading">Loading...</div>
+  <div *ngIf="!this.loading && this.isTeacher">
+    <div class="card" *ngIf="!hasQuestions()">
+      <div class="card-header">
+        Add Level 1 Vocab Question
+      </div>
+      <div class="card-body">
+        <button type="button" class="btn btn-primary" (click)="openModal(1)">Add Question</button>
+      </div>
+    </div>
+
+    <div *ngIf="hasQuestions()">
+      <div class="card margin-top">
+        <div *ngFor="let level of questionsByLevel; let first = first; let i = index">
+          <div class="card-header" [ngClass]="{'level-top': !first}">Level {{i + 1}} Questions</div>
+          <div class="card-body">
+            <div *ngFor="let question of level; let last = last; let j = index" class="row">
+              <div class="col-md-10 col-sm-12">
+                <div>Question: {{question.question}}</div>
+                <ul>
+                  <li type="A">{{question.choiceA}}</li>
+                  <li type="A">{{question.choiceB}}</li>
+                  <li type="A">{{question.choiceC}}</li>
+                  <li type="A">{{question.choiceD}}</li>
+                </ul>
+                <div>Answer: {{question.answer}}</div>
+              </div>
+              <div class="col-md-2 col-sm-12">
+                <button type="button" class="btn btn-primary" (click)="deleteQuestion(i, j)">Delete</button>
+              </div>
+              <hr>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="openModal(i+1)">Add Level {{i + 1}} Question</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card margin-top">
+        <div class="card-header">Want to add a new level?</div>
+        <div class="card-body">
+          <button type="button" class="btn btn-secondary" (click)="openModal(questionsByLevel.length + 1)">Add Level {{questionsByLevel.length + 1 }} Question</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!this.loading && !this.isTeacher">Student Scoreboard</div>
+</div>

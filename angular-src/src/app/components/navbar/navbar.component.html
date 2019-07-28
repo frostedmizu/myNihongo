@@ -9,14 +9,21 @@
       <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link"[routerLink]="['/']">Home</a>
       </li>
-      <li *ngIf="authService.isLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+      <li *ngIf="authService.isLoggedIn() && !loading && isTeacher" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link"[routerLink]="['/dashboard']">Dashboard</a>
       </li>
       <li *ngIf="authService.isLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link"[routerLink]="['/profile']">Profile</a>
       </li>
+      <li *ngIf="authService.isLoggedIn()" class="nav-item dropdown" [routerLinkActive]="['active']"  [routerLinkActiveOptions]="{exact:true}">
+        <a class="nav-link dropdown-toggle" href="#" id="vocabdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Vocab</a>
+        <div class="dropdown-menu" aria-labelledby="vocabdropdown">
+          <a class="dropdown-item" [routerLink]="['/vocab']">Vocab Quiz</a>
+          <a class="dropdown-item" [routerLink]="['/score']">Vocab Score</a>
+        </div>
+      </li>
       <li *ngIf="authService.isLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-        <a class="nav-link"[routerLink]="['/vocab']">Vocab</a>
+        <a class="nav-link"[routerLink]="['/reading']">Reading</a>
       </li>
       <li *ngIf="!authService.isLoggedIn()" class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
         <a class="nav-link"[routerLink]="['/login']">Login</a>

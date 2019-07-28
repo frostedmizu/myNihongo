@@ -97,13 +97,25 @@ export class VocabComponent implements OnInit {
   }
 
   checkAnswer(answer) {
+    let correct;
     // Right answer
     if(answer === this.questions[this.currentQuestion].answer){
       this.progress.push(true);
       this.score++;
+      correct = true;
     } else { // Wrong answer
       this.progress.push(false);
+      correct = false;
     }
+
+    // Save answer to DB
+    const score = {
+      correct: correct,
+      level: this.questions[this.currentQuestion].level,
+      questionId: this.questions[this.currentQuestion]._id
+    };
+    this.activityService.postScore(score);
+
     if(this.currentQuestion < this.lastQuestion) {
       this.count = -1;
       this.currentQuestion++;

@@ -1,0 +1,26 @@
+.center {
+  text-align: center;
+}
+.border-right {
+  border-right: 1px solid  rgba(0,0,0,0.125);
+}
+ .fixed {
+   position: fixed;
+   right: 12%;
+   top: 25%;
+   width: 22em;
+
+   @media (max-width: 768px) {
+     bottom: 0%;
+     top: 67%;
+     background: white;
+     width: 100%;
+     right: 0px;
+     padding: 15px;
+     border-top: 5px solid  rgba(0,0,0,0.125);
+   }
+ }
+
+.answer-input{
+  width: 100%;
+}

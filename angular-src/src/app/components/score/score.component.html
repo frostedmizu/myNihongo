@@ -1,0 +1,25 @@
+<h2 class="page-header">Vocab Scoreboard</h2>
+
+<div class="card margin-bottom" *ngFor="let level of parsedScores | keyvalue">
+  <div class="card-header">
+    <h4>Level {{level.key.substr(level.key.length - 1)}}</h4>
+  </div>
+  <div class="card-body">
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Score</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let score of level.value | keyvalue">
+        <th scope="row">{{score.key}}</th>
+        <td>{{score.value.correct}} out of {{score.value.total}}</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
