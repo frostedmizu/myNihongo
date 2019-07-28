@@ -69,7 +69,7 @@ export class EditReadingComponent implements OnInit {
       });
   }
 
-  deleteQuestion(index) {
+  deletePassage(index) {
     /*let id = this.questionsByLevel[level][index]._id;
     this.activityService.deleteQuestion(id).subscribe(questions => {
         this.questions = questions;
