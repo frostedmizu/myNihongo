@@ -1,0 +1,33 @@
+<div>
+  <h2 class="page-header">Edit Reading Passages</h2>
+
+  <div *ngIf="this.loading">Loading...</div>
+  <div *ngIf="!this.loading && this.isTeacher">
+    <h4 *ngIf="!hasPassages()" class="card margin-bottom">You haven't submitted any reading passages!</h4>
+    <div *ngIf="hasPassages()">
+      <div class="card margin-bottom">
+        <div class="card-header">Passages</div>
+        <div class="card-body" *ngFor="let passage of passages; let last = last; let i = index">
+          <div class="row">
+            <div class="col-md-10 col-sm-12">
+              {{passage.passage}}
+            </div>
+            <div class="col-md-2 col-sm-12">
+              <button type="button" class="btn btn-primary" (click)="deletePassage(i)">Delete</button>
+            </div>
+          </div>
+          <hr *ngIf="!last">
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
+        Add Passage
+      </div>
+      <div class="card-body">
+        <button type="button" class="btn btn-primary" (click)="openModal()">Add Passage</button>
+      </div>
+    </div>
+  </div>
+
+</div>

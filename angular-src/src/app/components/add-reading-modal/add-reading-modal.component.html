@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">Add Passage</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form (ngSubmit)="onSubmit()" #passageForm="ngForm">
+    <div class="form-group">
+      <label for="passage">Passage</label>
+      <input type="text"
+             class="form-control"
+             id="passage"
+             required
+             [(ngModel)]="passage"
+             name="passage"
+             placeholder="Enter Passage"
+             (focus)="clearMsg()">
+    </div>
+
+    <button type="submit" class="btn btn-primary" [disabled]="!passageForm.form.valid">Add Passage</button>
+  </form>
+
+  <div class="alert alert-success margin-top" role="alert" *ngIf="showSuccess">
+    Passage added!
+  </div>
+  <div class="alert alert-danger margin-top" role="alert" *ngIf="showError">
+    Error: Cannot add passage
+  </div>
+</div>

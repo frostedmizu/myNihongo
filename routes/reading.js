@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Reading = require('../models/reading');
+const Translate = require('../models/translate');
 const mongoose = require('mongoose');
 const passport = require('passport');
+
 
 // Add Reading
 router.post('/addReading', passport.authenticate('jwt', {session:false}), (req, res, next) => {
@@ -41,6 +43,26 @@ router.post('/deleteReading', passport.authenticate('jwt', {session:false}), (re
         data: readings
       });
     });
+  });
+});
+
+router.post('/addTranslate', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+  let newTranslate = new Translate({
+    translateInput: req.body.translateInput,
+    translation: req.body.translation,
+    username: req.body.username,
+    datetime: new Date(),
+    _classId: mongoose.Types.ObjectId(req.body.classId)
+  });
+
+  Translate.addTranslate(newTranslate, (err, translate) => {
+    if(err) {
+      res.json({success: false, msg: 'Failed to add translate: ' +err});
+    } else {
+      res.json({success: true,
+        msg: 'Translate added'
+      });
+    }
   });
 });
 

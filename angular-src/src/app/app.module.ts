@@ -25,6 +25,8 @@ import { ReadingComponent } from './components/reading/reading.component';
 import { ScoreComponent } from './components/score/score.component';
 import { EditVocabComponent } from './components/edit-vocab/edit-vocab.component';
 import { ReadingAnswersComponent } from './components/reading-answers/reading-answers.component';
+import { EditReadingComponent } from './components/edit-reading/edit-reading.component';
+import { AddReadingModalComponent } from './components/add-reading-modal/add-reading-modal.component';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -37,6 +39,7 @@ const appRoutes: Routes = [
   {path:'reading', component: ReadingComponent, canActivate:[AuthGaurd]},
   {path:'editVocab', component: EditVocabComponent, canActivate:[AuthGaurd]},
   {path:'readingAnswers', component: ReadingAnswersComponent, canActivate:[AuthGaurd]},
+  {path:'editReading', component: EditReadingComponent, canActivate:[AuthGaurd]}
 ]
 
 @NgModule({
@@ -53,7 +56,9 @@ const appRoutes: Routes = [
     ReadingComponent,
     ScoreComponent,
     EditVocabComponent,
-    ReadingAnswersComponent
+    ReadingAnswersComponent,
+    EditReadingComponent,
+    AddReadingModalComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +68,7 @@ const appRoutes: Routes = [
     FlashMessagesModule.forRoot(),
     ModalModule.forRoot()
   ],
-  entryComponents: [AddQuestionModalComponent],
+  entryComponents: [AddQuestionModalComponent, AddReadingModalComponent],
   providers: [ValidateService, AuthService, AuthGaurd, ActivityService],
   bootstrap: [AppComponent]
 })

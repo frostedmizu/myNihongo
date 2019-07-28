@@ -125,6 +125,22 @@ constructor(
       );
   }
 
+  addPassage(passage) {
+    this.authToken = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+
+    return this.http.post(this.getBaseUrl() + 'reading/addReading', passage, httpOptions)
+      .pipe(
+        catchError((err) => {return of(err)})
+      );
+
+  }
+
   translate(input) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -235,5 +251,35 @@ constructor(
           return of(err)
         })
       );
+  }
+
+  getTranslates() {
+
+  }
+
+  postTranslates(translate) {
+    this.authToken = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    translate.username = this.profile.username;
+    translate.classId = this.profile.classId;
+    this.authToken = this.authService.loadToken();
+
+    return this.http.post(this.getBaseUrl() + 'reading/addTranslate', translate, httpOptions)
+      .pipe(
+        map((response: any) => {
+          console.log(response);
+          return response;
+        }),
+        catchError((err) => {
+          return of(err)
+        })
+      ).subscribe();
   }
 }

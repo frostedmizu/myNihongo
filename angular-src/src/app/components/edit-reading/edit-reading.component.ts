@@ -1,23 +1,22 @@
-import {Component, OnInit} from '@angular/core';
-import { ActivityService } from '../../services/activity.service';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import {AddQuestionModalComponent} from "../add-question-modal/add-question-modal.component";
-import { Subscription } from 'rxjs';
-import { FlashMessagesService } from 'angular2-flash-messages';
-import { AuthService } from '../../services/auth.service';
+import { Component, OnInit } from '@angular/core';
+import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import {Subscription} from "rxjs";
+import {ActivityService} from "../../services/activity.service";
+import {FlashMessagesService} from "angular2-flash-messages";
+import {AuthService} from "../../services/auth.service";
+import {AddReadingModalComponent} from "../add-reading-modal/add-reading-modal.component";
 
 @Component({
-  selector: 'app-edit-vocab',
-  templateUrl: './edit-vocab.component.html',
-  styleUrls: ['./edit-vocab.component.scss']
+  selector: 'app-edit-reading',
+  templateUrl: './edit-reading.component.html',
+  styleUrls: ['./edit-reading.component.scss']
 })
-export class EditVocabComponent implements OnInit {
-  public questions;
+export class EditReadingComponent implements OnInit {
+  public passages;
   bsModalRef: BsModalRef;
   subscriptions: Subscription[] = [];
   public isTeacher;
   public loading = true;
-  public questionsByLevel = [];
 
   constructor(
     private activityService: ActivityService,
@@ -30,27 +29,23 @@ export class EditVocabComponent implements OnInit {
     this.setIsTeacher();
   }
 
-  openModal(level) {
-    const initialState = {
-      level: level
-    };
-
-    this.bsModalRef = this.modalService.show(AddQuestionModalComponent, {initialState});
+  openModal() {
+    this.bsModalRef = this.modalService.show(AddReadingModalComponent);
   }
 
   initTeacher() {
     //Bring in questions
-    this.getQuestions();
+    this.getReadings();
 
     this.subscriptions.push(this.modalService.onHide.subscribe((reason: string) => {
-      this.getQuestions();
+      this.getReadings();
     }));
   }
 
-  getQuestions() {
-    this.activityService.getQuestions().subscribe(questions => {
-        this.questions = questions;
-        this.questionsByLevel = this.activityService.parseLevels(this.questions);
+  getReadings() {
+    this.activityService.getPassages().subscribe(passages => {
+        this.passages = passages;
+        console.log(passages);
       },
       err => {
         console.log(err);
@@ -74,8 +69,8 @@ export class EditVocabComponent implements OnInit {
       });
   }
 
-  deleteQuestion(level, index) {
-    let id = this.questionsByLevel[level][index]._id;
+  deleteQuestion(index) {
+    /*let id = this.questionsByLevel[level][index]._id;
     this.activityService.deleteQuestion(id).subscribe(questions => {
         this.questions = questions;
         this.questionsByLevel = this.activityService.parseLevels(this.questions);
@@ -85,13 +80,13 @@ export class EditVocabComponent implements OnInit {
       err => {
         console.log(err);
         return false;
-      });
+      });*/
   }
 
-  hasQuestions() {
-    if(!this.questions) {
+  hasPassages() {
+    if(!this.passages) {
       return false;
-    } else if(!this.questions.length) {
+    } else if(!this.passages.length) {
       return false;
     } else {
       return true;

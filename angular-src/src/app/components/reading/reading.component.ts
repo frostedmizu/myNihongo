@@ -22,6 +22,8 @@ export class ReadingComponent implements OnInit {
   translate() {
     this.activityService.translate(this.translationInput).subscribe(translation => {
         this.translation = translation;
+        this.activityService.postTranslates({translateInput: this.translationInput, translation: translation});
+
         this.translationInput = '';
   },
       err => {
