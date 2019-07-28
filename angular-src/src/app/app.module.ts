@@ -27,6 +27,7 @@ import { EditVocabComponent } from './components/edit-vocab/edit-vocab.component
 import { ReadingAnswersComponent } from './components/reading-answers/reading-answers.component';
 import { EditReadingComponent } from './components/edit-reading/edit-reading.component';
 import { AddReadingModalComponent } from './components/add-reading-modal/add-reading-modal.component';
+import { TranslatesComponent } from './components/translates/translates.component';
 
 const appRoutes: Routes = [
   {path:'', component: HomeComponent},
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
   {path:'reading', component: ReadingComponent, canActivate:[AuthGaurd]},
   {path:'editVocab', component: EditVocabComponent, canActivate:[AuthGaurd]},
   {path:'readingAnswers', component: ReadingAnswersComponent, canActivate:[AuthGaurd]},
-  {path:'editReading', component: EditReadingComponent, canActivate:[AuthGaurd]}
+  {path:'editReading', component: EditReadingComponent, canActivate:[AuthGaurd]},
+  {path:'translates', component: TranslatesComponent, canActivate:[AuthGaurd]}
 ]
 
 @NgModule({
@@ -58,7 +60,8 @@ const appRoutes: Routes = [
     EditVocabComponent,
     ReadingAnswersComponent,
     EditReadingComponent,
-    AddReadingModalComponent
+    AddReadingModalComponent,
+    TranslatesComponent
   ],
   imports: [
     BrowserModule,

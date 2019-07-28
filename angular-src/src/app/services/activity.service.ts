@@ -138,7 +138,28 @@ constructor(
       .pipe(
         catchError((err) => {return of(err)})
       );
+  }
 
+  // Returns updated passages
+  deletePassage(id) {
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    let classId = this.profile.classId;
+
+    this.authToken = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+
+    return this.http.post(this.getBaseUrl() + 'reading/deleteReading', {id: id, classId: classId}, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response.data;
+        }),
+        catchError((err) => {return of(err)})
+      );
   }
 
   translate(input) {
@@ -208,6 +229,27 @@ constructor(
     });
   }
 
+  deleteScores() {
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    let classId = this.profile.classId;
+
+    this.authToken = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
+
+    return this.http.post(this.getBaseUrl() + 'answer/deleteScores', {classId: classId}, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response.data;
+        }),
+        catchError((err) => {return of(err)})
+      );
+  }
+
   getReadingAnswers() {
     this.authToken = this.authService.loadToken();
     const httpOptions = {
@@ -254,7 +296,24 @@ constructor(
   }
 
   getTranslates() {
+    this.authToken = this.authService.loadToken();
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.authToken
+      })
+    };
 
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+    let classId = this.profile.classId;
+    let url = this.getBaseUrl() + 'reading/getTranslates?classId=' + classId;
+    return this.http.get(url, httpOptions)
+      .pipe(
+        map((response: any) => {
+          return response.data;
+        }),
+        catchError((err) => {return of(err)})
+      );
   }
 
   postTranslates(translate) {

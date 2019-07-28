@@ -70,17 +70,16 @@ export class EditReadingComponent implements OnInit {
   }
 
   deletePassage(index) {
-    /*let id = this.questionsByLevel[level][index]._id;
-    this.activityService.deleteQuestion(id).subscribe(questions => {
-        this.questions = questions;
-        this.questionsByLevel = this.activityService.parseLevels(this.questions);
-        this.flashMessagesService.show('Question removed',
+    let id = this.passages[index]._id;
+    this.activityService.deletePassage(id).subscribe(passages => {
+        this.passages = passages;
+        this.flashMessagesService.show('Passage removed',
           {cssClass: 'alert-success', timeout: 3000});
       },
       err => {
         console.log(err);
         return false;
-      });*/
+      });
   }
 
   hasPassages() {

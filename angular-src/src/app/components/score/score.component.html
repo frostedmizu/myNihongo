@@ -1,5 +1,5 @@
 <h2 class="page-header">Vocab Scoreboard</h2>
-
+<div *ngIf="!scores || !scores.length">There are currently no scores to be displayed.</div>
 <div class="card margin-bottom" *ngFor="let level of parsedScores | keyvalue">
   <div class="card-header">
     <h4>Level {{level.key.substr(level.key.length - 1)}}</h4>

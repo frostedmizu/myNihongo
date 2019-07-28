@@ -26,7 +26,6 @@ router.post('/addReading', passport.authenticate('jwt', {session:false}), (req, 
 
 // Get Reading
 router.get('/getReading', passport.authenticate('jwt', {session:false}), (req, res, next) => {
-  console.log('Getting Reading');
   Reading.getReadingsByClassId(req.query.classId, (err, readings) => {
     console.log(err);
     res.json({success: true,
@@ -63,6 +62,16 @@ router.post('/addTranslate', passport.authenticate('jwt', {session:false}), (req
         msg: 'Translate added'
       });
     }
+  });
+});
+
+// Get Translates
+router.get('/getTranslates', passport.authenticate('jwt', {session:false}), (req, res, next) => {
+  Translate.getTranslatesByClassId(req.query.classId, (err, translates) => {
+    console.log(err);
+    res.json({success: true,
+      data: translates
+    });
   });
 });
 

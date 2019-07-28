@@ -1,0 +1,22 @@
+<div class="accordion" id="accordionTranslates">
+  <div class="card" *ngFor="let user of parsedTranslatesByUser | keyvalue">
+    <div class="card-header" id="heading{{user.key}}">
+      <h5 class="mb-0">
+        <button class="btn btn-link" type="button" [attr.data-toggle]="'collapse'" [attr.data-target]="'#collapse' + user.key" aria-expanded="true" [attr.aria-controls]="'collapse' + user.key">
+          {{user.key}}
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapse{{user.key}}" class="collapse" [attr.aria-labelledby]="'heading' + user.key" [attr.data-parent]="'#accordionTranslates'">
+      <div class="card-body">
+        <div *ngFor="let translate of user.value; let last = last; ">
+          <p>Translate Input: {{translate.translateInput}}</p>
+          <p>Translation: {{translate.translation}}</p>
+          <p>Translate Date: {{translate.datetime | date:'medium'}}</p>
+          <hr *ngIf="!last">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
