@@ -45,7 +45,6 @@ export class EditReadingComponent implements OnInit {
   getReadings() {
     this.activityService.getPassages().subscribe(passages => {
         this.passages = passages;
-        console.log(passages);
       },
       err => {
         console.log(err);

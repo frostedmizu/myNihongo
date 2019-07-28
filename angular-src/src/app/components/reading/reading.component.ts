@@ -41,8 +41,6 @@ export class ReadingComponent implements OnInit {
   }
 
   submit(passage) {
-    console.log(passage);
-
     let answer = {
       answer: passage.answer,
       readingId: passage._id

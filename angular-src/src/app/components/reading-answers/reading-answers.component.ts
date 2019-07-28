@@ -65,7 +65,6 @@ export class ReadingAnswersComponent implements OnInit {
         }
       }
     }
-    console.log(this.passages)
     this.answersParsed = true;
   }
 }

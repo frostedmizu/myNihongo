@@ -219,7 +219,6 @@ constructor(
       return this.http.post(this.getBaseUrl() + 'answer/addScore', score, httpOptions)
         .pipe(
           map((response: any) => {
-            console.log(response);
             return response;
           }),
           catchError((err) => {
@@ -286,7 +285,6 @@ constructor(
     return this.http.post(this.getBaseUrl() + 'answer/addReadingAnswer', answer, httpOptions)
       .pipe(
         map((response: any) => {
-          console.log(response);
           return response;
         }),
         catchError((err) => {
@@ -333,7 +331,6 @@ constructor(
     return this.http.post(this.getBaseUrl() + 'reading/addTranslate', translate, httpOptions)
       .pipe(
         map((response: any) => {
-          console.log(response);
           return response;
         }),
         catchError((err) => {

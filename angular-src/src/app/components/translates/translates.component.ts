@@ -23,7 +23,6 @@ export class TranslatesComponent implements OnInit {
     this.activityService.getTranslates().subscribe((translates) => {
       this.translates = translates;
       this.parseTranslates();
-      console.log(translates);
     });
   }
 
@@ -35,6 +34,5 @@ export class TranslatesComponent implements OnInit {
       }
       this.parsedTranslatesByUser[user].push(this.translates[i]);
     }
-    console.log(this.parsedTranslatesByUser);
   }
 }
